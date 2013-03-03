@@ -1,0 +1,17 @@
+﻿++ Internatiönal Chàracters
+
+WikiWords may contain InternatiönalChàracters.
+
+Tests
+    * ÄtTheBeginning
+    * AtTheEnð
+    * StuckÄtTheMiddle
+    * XxXxÖx.
+
+    * SšTtz
+
+zžtsš
+
+ŠSTŽZ
+
+ÓsÔsÖsÚsÜsÝ

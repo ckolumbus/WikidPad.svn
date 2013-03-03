@@ -1,0 +1,538 @@
+﻿++ Change Log
+
+Mar. 03, 2013 (2.3beta08)
+
+    * Support for plugins in ZIP-files. In folder "extensions" rename
+      "demoZipPlugin.zipf" by deleting the "f" at end and look into
+      the ZIP-file for a demo plugin.
+    * Added option to use either Unix or system-dependent line endings
+      in wiki page files (thanks to Christian Ziemski).
+      See [OptionsDialog#*Force editor to write platform dependent files*]
+    * New options page "New wiki defaults" to set some defaults for newly
+      created wikis. See [OptionsDialog#+++ New wiki defaults]
+    * Added optional component log which shows errors during initialization
+      of optional components like spellchecking or external HTML renderers.
+      See [Menu Extra#++ Optional component log]
+
+    * Vi improvements (thanks to Ross):
+        * Small fix for line position
+        * Fix 'gvim' and 'vim' for pages that have special characters,
+        * i.e. all subpages
+
+    * Moved option "wiki page files ascii only" to "Advanced"
+      options page
+
+    * Bug fix: Missing file for wiki root page could cause problems
+      with e.g. exporting HTML
+    * Bug fix: Regression which raised an \IndexError when closing
+      WikidPad
+    * Bug fix: Error in log when cancelling new wiki creation in
+      basic wiki settings dialog
+
+
+
+Dec. 31, 2012 (2.3beta07)
+
+    * Added attribute "wrap_type" to switch visual wrap in editor
+      between word and char(acter)-wrap (for Asian languages).
+      See [WikiDocumentAttributes#*wrap_type: "word" or "char"*]
+    * Added additional option to set wrap type (attributes have
+      priority). See [OptionsDialog#*Wrap by*]
+    * Wrap function in menu "Format"->"Rewrap Text" also respects
+      above settings
+
+    * Introduced "body" HTML-tag to enclose text which should be
+      exported to HTML as is. See [TextFormatting#++++ HTML as is]
+    * Added menu item to paste raw HTML if available on clipboard
+      (it is pasted with << <body></body> >> around it).
+      See [Menu Edit#++ Paste Raw HTML]
+
+    * Appendix for table cells now can have multi-letter keys if
+      key is terminated by '=' or ':'.
+      See [TableFormatting#++ Cell appendix]
+    * Appendix for image URL supports key "class" to set one or
+      more CSS-classes. See [UrlLinking#++ URL Appendix]
+    * Images in HTML don't get automatic attribute 'border="0"'
+      anymore (except for internal preview). Instead there is a
+      CSS setting now which can be overwritten
+
+    * Tree hidden by default for new installations
+
+    * Vi changes (thanks to Ross):
+        * Fixes for wxPython version >= 2.9
+        * Make caret colours definable in WikidPad.virc, options are
+            - "caret_colour_normal"
+            - "caret_colour_visual"
+            - "caret_colour_insert"
+            - "caret_colour_replace"
+            - "caret_colour_command"
+        * add option ('strip_headings') to strip _ and * from headings
+
+    * Bug fix: Closing tab from context menu in editor led to error
+      or crash (thanks to Ross)
+
+
+
+Oct. 31, 2012 (2.3beta06)
+
+    Thanks to Ross for all of the enhancements
+
+    * Vi improvements
+        * Initial support for loading settings from rc file
+        * Add :[range]sort command
+        * Add ':gvim' command to open wikipage in gvim (only for
+          when using original_sqlite database)
+        * Add 'viewsource' command
+        * Disable caret scrolling by default as it causes a large
+          performance hit
+        * Reset cmd selection after typing
+
+        * Fix bug when deleting in line visual mode
+        * Fix :command selection
+        * Fix line visual selection mode when moving caret down
+        * Fix shift in ViInputDialog, add option to refresh page
+          (F5) in preview
+        * Fix a number of other small bugs
+
+    * Add support for folding addition 'blocks' in the editor
+
+    * Bug fixes: Better source compatibility with wxPython 2.9 (Windows binary not affected)
+
+
+
+Jul. 02, 2012 (2.3beta05)
+
+    * Function to convert editor selection to wiki word now suggests
+      name of wiki word to move text to, based on beginning of text.
+      (Thanks to Bjorn F. Johansson)
+    * Moved function to convert editor selection to link from
+      "KeyBindings.py" to "PWikiNonCore.py" and into wiki
+      language helper
+    * Vi improvements
+
+    * Bug fixed: "page" insertion processed value as wiki words,
+      not wiki links (different with subpages)
+    * Bug fixed: export from command line failed (using a saved
+      export wasn't affected)
+
+
+
+May  19, 2012 (2.3beta04)
+
+    * Option to make timestamp stored in file signature block more
+      coarse to prevent false dirty recognition of wiki files moved
+      between different file systems (with different
+      time granularity). See [OptionsDialog#*Time coarsening*]
+
+    * Made maintenance function "recover wiki" more convenient, now
+      with file dialogs instead of simple text fields
+    * In dialog "Show job count" added info "done jobs" (since
+      opening of dialog) to reduce irritation due to not decreasing
+      job count
+
+    * Printing functionality transferred to plugin "PrintDefault.py"
+
+    * For error logging during initialization different log file name
+      "WikidPad_Init_Error.log" is used (allows to distinguish files
+      in portable installation)
+
+    * Vi improvements (thanks to Ross)
+        * Small fix for searching in editor.
+        * Make repeat (".") more vim-like
+
+        * Add basic support for mouse in ":" commands.
+        * Fix bug when using o or t whilst in visual mode.
+
+        * Add initial support for Vi Plugins.
+        * Fix some small bugs.
+        * Add option to skip to next/previous heading in preview mode
+          using { or }
+
+        * Fix text selection with g0 / g$
+        * Rewrite <sup> / <sub> tags when creating a link using
+          <<ys*r>> (or equivalent)
+        * Copy << >> blocks as lines if the span multiple lines and
+          fully form the lines
+        * Begin rewriting undo / redo function (may still be
+          a bit buggy)
+        * Fix word movements at end of file
+        * Fix line trucation when line is empty
+
+    * Bug fixed: Multipage text import of version 0 failed
+    * Bug fixed: Option "Strip spaces in search" had default "True",
+      should be "False"
+
+
+
+Feb. 25, 2012 (2.3beta03)
+
+    * New (but yet uncomfortable) maintenance function to recover a 
+      "Compact Sqlite" DB by creating an MPT export of the readable
+      parts. See [WikiMaintenance#++ Recover DB]
+
+    * Vi improvements (thanks to Ross)
+        * Correct named registers so that A-Z now append to their lowecase
+          equivalents
+        * Introduce numbered registers support
+            * Yanked text is placed into the "0 register
+            * Deleted (or changed) text is placed into the "1 register (and
+              the rest, "2, "3 ... are shifted along by one)
+            * Small text changes (< 1 line) are places into the "- register
+
+        * Add option to search google/wikipedia from cmdline (default arg is
+          current page name)
+        * Allow stripping of numbers with J cmd
+
+        * Add ":tab" (alias ":buffer) cmd to allow switching tabs.
+        * Fix ":quit" so it is possible to close other tabs (not just the
+          selected one)
+        * Fix ":tabonly" so it can take other open tabs as its argument
+
+        * Add ":s", "&" and "&&" cmds (repeat last ":s" cmd)
+        * Note: flags are currently used regardless if "&" or "&&" is used.
+
+    * Bug fixed: Multipage HTML export/print didn't work
+    * Bug fixed: "ContinueSearch" (default key: F3) didn't work in text editor
+    * Bug fixed: Indented table end not recognized
+    * More graceful handling of UTF-8 decoding from sqlite databases
+
+
+
+Jan. 29, 2012 (2.3beta02)
+
+    * Table cell appendices. See [TableFormatting#+++ Cell appendix]
+    * Support for spanning over multiple rows/columns in table using
+      continuation cells. See [TableFormatting#+++ Continuation cells]
+    * Restrict wiki word links in HTML export to words which are really
+      exported
+
+    * Configuration option to show all tabs initially in preview or
+      editor mode. See [OptionsDialog#*Tab Mode*]
+    * Configuration option to rebuild or update externally modified files
+      when opening wiki. See [OptionsDialog#*Rebuild*]
+    * Command line option to update externally modified files when
+      opening wiki. See [CommandLineSupport#*--update-ext*]
+
+    * Vi improvements (thanks to Ross)
+      * Add support for repeating visual mode commands in editor
+      * Add option to load keybindings from rc file (~/.Wikidpad.virc)
+      * Initial support for ':' commands.
+      * Rewrite vi search in editor
+      * Rewrite webkit preview to use new search dialog in vi mode
+      * Add support for '<,'> in range cmds
+      * Add :write option
+
+    * Shows a message in statusbar while background tasks are performed
+    * Go to end of paragraph(s) after rewrapping text
+
+    * Bug fixed: Unwanted space in first line of indented paragraph after
+      word wrapping
+    * Bug fixed: Adding spaces to heading of newly created wiki pages only
+      supported small subset of uppercase letters
+
+
+
+Jan. 01, 2012 (2.3beta01)
+
+    * Vi-mode improvements (thanks to Ross)
+        * Add link autocomplete support to vi insert mode
+        * Separate VI keybindings to allows for easier remapping of keys
+
+    * Internal: Basic support for plugins in context menus (read
+      "extensions/charcountContext.pyf" and
+      "docs/MenuHandling_contextInfo.txt")
+
+    * Bug fixed: Encode external webkit urls so they all work as
+      expected (thanks to Ross)
+    * Bug fixed: Layout problem in page search and replace dialog
+
+
+
+Nov. 27, 2011 (2.2beta10)
+
+    * Wiki-wide history. See [ChronViewWindow#+++ Wiki-wide history]
+    * Page history now also records functional pages
+
+
+
+Oct. 29, 2011 (2.2beta09)
+
+    * Maintenance option to check external wiki files for
+      modification (for "original" backends).
+      See [WikiMaintenance#++ Update ext. modif. wiki files]
+    * Vi emulation improvements (thanks to Ross):
+        * Initial support for multiple clipboard registers in vi emulation
+        * Add support for ViEmulation on windows (for editor)
+
+    * Bug fixed: Failure on startup with invalid but existing trashcan overview
+    * Bug fixed: Background rebuild didn't work sometimes
+    * Bug fixed: Renaming all subpages failed if a subpage is an alias
+
+
+
+Oct. 01, 2011 (2.2beta08)
+
+    * New flag character 'f' for favorites to bring existing frame
+      to front. See [FavoriteWikis]
+    * Option to strip leading and trailing spaces from search strings
+      for convenience.
+      See [OptionsDialog#*Strip leading/trailing spaces*]
+    * Enhancements for Mac OS (thanks to cmore): Support for emacs
+      shortcuts, better search for Enchant library (spell checking),
+      bug fixes
+    * Bug fixed: MacOS: wx.html.HtmlWindow.GetViewStart() returns
+      wx.Point instead of tuple under some circumstances
+
+
+
+Aug. 28, 2011 (2.2beta07)
+
+    * Improvements to vi emulation (thanks to Ross)
+    * When choosing wikiword from dialog list of children, parents,
+      etc. automatically select first item if no other default given
+      (thanks to Ross)
+    * Option to suppress reaction of HTML preview on
+      "updated wiki page" events for IE to avoid automatic scrolling
+      of preview window upward to begin.
+      See [OptionsDialog#*Reduce update handling in HTML preview*]
+    * Some problems with scrolling of internal and Webkit renderer
+      fixed
+    * Saving and restoring of scroll positions now also supported for
+      IE renderer
+    * Adding more CSS classes to HTML elements, especially class
+      "wikidpad" to all elements.
+      See [Cascading style sheets#+++ The class "wikidpad"]
+    * Removed 'size="1"' from "hr"-tags in HTML exporter to allow
+      full CSS styling
+
+    * Bug fixed: WikidPad's own print dialog wasn't closed after
+      starting print of type "HTML (Webkit)"
+    * Bug fixed: Javascript wasn't processesd (correctly) if printing
+      HTML with Webkit (some problems persist)
+    * Bug fixed: Added forgotten "global.paragraph_mode" attribute to
+      autocompletion
+    * Bug fixed: Problems with autocompletion if wiki word contains
+      question mark
+
+
+
+Jul. 31, 2011 (2.2beta06)
+
+    * Further improvements to Vi-mode in editor and Webkit preview
+      (thanks to Ross)
+    * Separate option for vi emulation in editor.
+      See [OptionsDialog#*Use vi keys in editor*]
+    * Support for canonical parents (thanks to Ross).
+      See [WikiDocumentAttributes#*parent*]
+    * Support Webkit HTML rendering for print (thanks to Ross)
+    * Table option to set CSS class (thanks to Ross).
+      See [TextFormatting#+++ Tables]
+    * Option to switch off asking if nonexisting wiki word should be
+      created in open WikiWord dialog.
+      See [OptionsDialog#*Ask for creation when opening non-existing word*]
+    * Option to open link in new window when middle clicking on it,
+      also menu item to do that (thanks to Ross)
+
+
+
+Jun. 25, 2011 (2.2beta05)
+
+    * Trashcan support. See [Menu Wiki#++ Open trashcan],
+      [OptionsDialog#++++ Trashcan]
+    * New insertion "search" to create arbitrary searches.
+      See [Insertions#* *search* ]
+    * Added "page:" prefix for boolean regex search to search for
+      page name. See [SearchingTheWiki/BooleanRegex#++++ page:]
+    * Support for "wikirel:" protocol to support relative links to
+      other wikis. See [UrlLinking#++ Relative URLs]
+    * Support to set readonly per wiki page.
+      See [Menu Wiki Page#++ Page read only]
+    * Black lists (global and wiki-dependent) for non-camelcase
+      (=bracketed) wikiwords added.
+      See [WordLinking!exclude_from_linking]
+
+    * Basic Vi emulation for editor (thanks to Ross)
+    * Grammar change to forbid bold and italics to span over a heading
+    * Activation (double click or press return) on collapsed todo or
+      attribute tree item with one child which represents a wiki page
+      opens this wiki page
+
+    * Internal: New function wxHelper.getHtmlFromClipboard()
+
+    * Bug fixed: WikidPad can't be closed if volume access lost
+      during session
+    * Bug fixed: Crash when rebuilding sqlite wiki on 64 bit Linux
+    * Bug fixed: Search index from 64bit Python not compatible with
+      32bit Python (due to hash function). Changed index format
+      number from 2 to 3
+    * Bug fixed: "Move to file storage" failed
+
+    * Internal: Bug fixed: Error in error handling for plugins
+    * Internal: Bug fixed: Some functions in plugins were not
+      registered for calling
+
+
+
+May 28, 2011 (2.2beta04)
+
+	* Changes to editor (thanks to Ross):
+		* Rename and delete files from context menu
+		* Display page linked to in status bar when hovering over an
+		  internal link
+		* Display pictures as tooltips when hovering over their links
+		* Display preview picture in image pasting dialog
+	* Webkit preview: Incremental search and optional vi shortcut keys
+	  (thanks to Ross). See [Webkit]
+
+	* Additional options for result tables in insertions
+	  ("colwidth equal" and "table_border_width <integer>").
+	  See [Insertions#+ Lists of wiki links]
+
+	* Bugs fixed: Error in error handling in search index processing,
+	  lock error when renaming page
+	* Bug fixed: Linux/GTK: Too long grids if too many data to show
+	  (for grid in MPT-import and file cleanup)
+	* Bug fixed: Failure when exporting versioning data to MPT format
+	* Bug fixed: No start of "wiki:" URLs if it should be opened in
+	  new window and no "wiki:" protocol handler installed (mainly
+	  Linux problem)
+	* Bug fixed: "user_extensions/WikidPadHooks.py" not called because
+	  of same file name as "extensions/WikidPadHooks.py"
+
+	* Internal: New "hooks" plugin API version 2 which adds functions
+	  to handle closing of a wiki
+
+
+
+May 01, 2011 (2.2beta03)
+
+    * Support for Webkit if necessary libraries pyGtk and
+      pyWebkitGtk available (many thanks to Ross).
+      See [Options HTML preview_export#*Preview renderer*]
+    * Option to colorize search fragments in wiki links separately.
+      They become black if search text can't be found on target page.
+      See [OptionsDialog#*Colorize search fragments of links]
+
+    * Handle multi-screen configuration with negative coordinate
+      values (screen 2 to the left of screen 1)
+    * Gray out history icons if respective history direction not
+      possible
+
+    * Bug fixed: Failure on opening wiki if wiki config corrupted
+
+    * Internal: Added plugin type "Exporters" and moved HTML exporter
+      from core to plugin
+
+
+
+Mar. 27, 2011 (2.2beta02)
+
+    * File cleanup dialog to find orphaned files in file storage and
+      missing files (aka dead links). See [FileCleanupDialog]
+
+    * Less jumping around of selection in doc structure window when
+      adding text (thanks to Christian Ziemski)
+    * Support for spaces in bracketed URLs
+    * Option to control type of URL (bracketed or not) on drag&drop.
+      See [OptionsDialog#*Links in brackets*]
+    * Support for URL appendix "prnr" to create a relative link
+      which is not relocated (modified) when exported as HTML to
+      a different destination. See [UrlLinking#++ URL Appendix]
+    * Option to sort list in "Open Wiki Word" dialog in reverse
+      alphabetical order
+    * Keybinding settings introduced to move one or more selected
+      logical lines one line up or down. See [ChangingKeyBindings]
+
+    * Bug fixed: URL links with title give exception
+    * Bug fixed: Export dialog didn't work
+    * Bug fixed: Favorite wiki icons may open wrong wiki
+    * Bug fixed: Misleading error message and bad error handling
+      for corrupted wiki config file
+
+    * Internal: Deprecated makeRelUrlAbsolute() and
+      makeAbsPathRelUrl() in PersonalWikiFrame, call functions in
+      WikiDocument instead
+
+
+
+Feb. 27, 2011 (2.2beta01)
+
+    * Support for [.] to refer to current wiki page
+    * Introduced "prel" and "pabs" in URL appendix and automatic
+      adaption of relative links. See [UrlLinking#++ URL Appendix]
+    * Windows binary installer now supports creation of a portable
+      install (no uninstall, no registry or start menu changes)
+    * Incremental search now also supported in inline diff view
+    * Removed annoying "blinking" on current heading in
+      doc structure window (thanks to Christian Ziemski)
+    * Introduced splash window.
+      See [OptionsDialog#*Show splash screen*]
+
+    * Bug fixed: Autocompletion for anchors treated wiki links as
+      wiki words (no relative or absolute paths supported)
+    * Bug fixed: Error in error handling for unknown wiki language
+      tag on opening a wiki
+    * Bug fixed: Problems with IE 6 on Win XP SP2 reduced (problems
+      with iframe remain)
+    * Bug fixed: Sometimes relative links not possible due to
+      undesired case sensitivity
+    * Bug fixed: "SetCallFilterEvent" not supported by older
+      wxPython versions
+
+
+
+Jan. 30, 2011 (2.1beta11)
+
+This version needs a rebuild of the index if you enabled indexed
+search. This is done automatically in the background but may
+initially lead to higher CPU load and incomplete results of index
+searches.
+
+Creators of derived WikidPad parsers should merge changes from
+official parser
+
+    * Option for translating menu accelerators for special keyboard
+      layouts where ctrl-level has other layout than base level.
+      See [OptionsDialog#*Translate menu accelerators for keyboard layout*]
+    * Option to show iframe content from external sources inside
+      the HTML IE preview.
+      See [Options HTML preview_export#*Show iframes inside IE preview*]
+    * Experimental: Windows: Option to let scroll-wheel scroll
+      windows under pointer. Doesn't work for some windows.
+      See [OptionsDialog#*Scroll under pointer*]
+    * Index search: Highlight found terms and jump to one found
+      term on double-click
+    * Removed plus signs in front of headings in page structure
+      view, used indentation instead
+
+    * Several bug fixes regarding "whoosh" (index search)
+    * Bug fixed: Windows: "Invalid handle" error on command line
+      bridge insertion plugins
+    * Bug fixed: Autocompletion for anchors treated wiki links as
+      wiki words (no relative or absolute paths supported)
+
+    * Internal, index search: Store a format number for search
+      index and rebuild index if number doesn't match the format
+      of current WikidPad version
+
+
+
+[ChangeLog2010]
+
+[ChangeLog2009]
+
+[ChangeLog2008]
+
+[ChangeLog2007]
+
+[ChangeLog2006]
+
+[ChangeLog2005]
+
+[ChangeLog2004]
+
+[ChangeLog2003]
+
+
+[bookmarked: true]
+[tree_position: 0]
