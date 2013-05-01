@@ -768,11 +768,11 @@ WikiWordCcPAT = (ur"(?:[" +
         ur"]+)")
 
 
-UrlPAT = ur'(?:(?:https?|ftp|rel|wikirel)://|mailto:|Outlook:\S|wiki:/|file:/)'\
+UrlPAT = ur'(?:(?:https?|ftp|rel|wikirel|ea)://|mailto:|Outlook:\S|wiki:/|file:/)'\
         ur'(?:(?![.,;:!?)]+(?:["\s]|$))[^"\s|\]<>])*'
 
 
-UrlInBracketsPAT = ur'(?:(?:https?|ftp|rel|wikirel)://|mailto:|Outlook:\S|wiki:/|file:/)'\
+UrlInBracketsPAT = ur'(?:(?:https?|ftp|rel|wikirel|ea)://|mailto:|Outlook:\S|wiki:/|file:/)'\
         ur'(?:(?![ \t]+[|\]])(?: |[^"\s|\]<>]))*'
 
 
