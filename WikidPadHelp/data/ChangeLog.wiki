@@ -1,0 +1,369 @@
+﻿++ Change Log
+
+
+Oct. 27, 2013 (2.3beta11)
+
+    * Added attribute "bgcolor" to set tree item background color.
+      See [WikiDocumentAttributes#+ Attribute Based Tree Formatting]
+
+    * Vi (thanks to Ross):
+        * Add ctrl-t, ctrl-d in insert mode (indent/deindent line)
+        * Switch ctrl-e, ctrl-y to use native scintilla
+          line movements
+
+    * Remember last print and export type chosen in the respective
+      dialogs
+    * Wiki configuration file entry   [wiki_db] / db_filename   to
+      set db filename (works for Original Sqlite and Compact Sqlite)
+
+    * Advanced user interface fixes:
+        * Opening tabs in adjacent tabs (thanks to Ross)
+        * Middle clicking tab selection (thanks to Ross)
+        * Tab title may not be changed when switching page, tab
+          focused instead of content
+
+    * Linux: Quick search window vanishes now when page is opened
+      in foreground (similar but not exactly same behavior as
+      on Windows)
+    * Windows: Bug fixed: Quick search window did vanish even when
+      opening found item in background
+
+    * Bug fixed: Last line of page could vanish in plain text print
+    * Bug fixed: "Update external files" didn't add externally added
+      .wiki files
+
+
+
+Jul. 13, 2013 (2.3beta10)
+
+    * Support for advanced user interface (AUI) to drag around wiki
+      page tabs to place multiple ones side by side (also thanks to Ross)
+
+    * Vi (thanks to Ross):
+        * Add "GoogleSelection" cmd to preview mode
+        * Inital support for displaying errors with ":" cmds
+        * Add ":start_pdb_debug" cmd
+        * Add ":winopen" and ":split" commands
+        * Fix indent/deindent in visual mode
+        * Various other fixes
+        * ctrl-w l [or h,j,k] can now be used to navigate viewports
+          as per vim
+
+    * Custom listbox (right click to copy selected items of listbox
+      to clipboard) (thanks to Ross)
+    * Ensure incremental search focuses text on wxpython > 2.9)
+      (thanks to Ross)
+
+    * Menu items to reorder lines. See [Menu Edit#++ Line Move]
+    * Enhancement: Scroll leftmost after applying line wrapping
+
+
+
+May  07, 2013 (2.3beta09_02)
+
+    * New wiki-bound option to set heading level for main title of
+      new pages. Old option to set title prefix is outdated.
+      See [OptionsDialog#*Heading level*]
+    * Bug fixed: Headings in MediaWiki language could span over
+      multiple lines
+    * Bug fixed: Basic formatting (bold, italics, heading)
+      didn't work for MediaWiki syntax
+
+
+
+May  04, 2013 (2.3beta09)
+
+    * Support for alternative MediaWiki syntax.
+      See [MediaWiki/TextFormatting]
+    * Support in image URL appendices for bounding box definition and
+      "upright"-mode (switching bounding box dimensions if useful
+      to fit image format better). See [UrlLinking#++ URL Appendix],
+      code character "r" and [UrlLinking#*upright*]
+    * Search insertions can show found contents instead of wikiword
+      with "showtext" insertion (may need some tweaks yet).
+      See [Insertions#*showtext*]
+    * Vi improvements (thanks to Ross):
+        * Add support for using the 'Alt' key in keybindings
+        * (editor) Add \V option to the :sub cmd (switch for
+          plain text pattern)
+        * (editor) Add cmd 'Ctrl-R' to start a search and replace
+          on the current visual selection.
+          Uses the \V switch. [not in vim]
+        * (editor) Add cmd 'Alt-G' to search (google) the current
+          visual selection. If not selection present WikiWord
+          is used. [not in vim]
+        * Enable GoogleSelection (alt-g) cmd if no selection present
+          (defaults to wikipage)
+
+    * Bug fixed: Problems when using menu "Wiki"->"Favorites"->"Manage favorites"
+
+
+
+Mar. 03, 2013 (2.3beta08)
+
+    * Support for plugins in ZIP-files. In folder "extensions" rename
+      "demoZipPlugin.zipf" by deleting the "f" at end and look into
+      the ZIP-file for a demo plugin.
+    * Added option to use either Unix or system-dependent line endings
+      in wiki page files (thanks to Christian Ziemski).
+      See [OptionsDialog#*Force editor to write platform dependent files*]
+    * New options page "New wiki defaults" to set some defaults for newly
+      created wikis. See [OptionsDialog#+++ New wiki defaults]
+    * Added optional component log which shows errors during initialization
+      of optional components like spellchecking or external HTML renderers.
+      See [Menu Extra#++ Optional component log]
+
+    * Vi improvements (thanks to Ross):
+        * Small fix for line position
+        * Fix 'gvim' and 'vim' for pages that have special characters,
+        * i.e. all subpages
+
+    * Moved option "wiki page files ascii only" to "Advanced"
+      options page
+
+    * Bug fix: Missing file for wiki root page could cause problems
+      with e.g. exporting HTML
+    * Bug fix: Regression which raised an \IndexError when closing
+      WikidPad
+    * Bug fix: Error in log when cancelling new wiki creation in
+      basic wiki settings dialog
+
+
+
+Dec. 31, 2012 (2.3beta07)
+
+    * Added attribute "wrap_type" to switch visual wrap in editor
+      between word and char(acter)-wrap (for Asian languages).
+      See [WikiDocumentAttributes#*wrap_type: "word" or "char"*]
+    * Added additional option to set wrap type (attributes have
+      priority). See [OptionsDialog#*Wrap by*]
+    * Wrap function in menu "Format"->"Rewrap Text" also respects
+      above settings
+
+    * Introduced "body" HTML-tag to enclose text which should be
+      exported to HTML as is. See [TextFormatting#++++ HTML as is]
+    * Added menu item to paste raw HTML if available on clipboard
+      (it is pasted with << <body></body> >> around it).
+      See [Menu Edit#++ Paste Raw HTML]
+
+    * Appendix for table cells now can have multi-letter keys if
+      key is terminated by '=' or ':'.
+      See [TableFormatting#++ Cell appendix]
+    * Appendix for image URL supports key "class" to set one or
+      more CSS-classes. See [UrlLinking#++ URL Appendix]
+    * Images in HTML don't get automatic attribute 'border="0"'
+      anymore (except for internal preview). Instead there is a
+      CSS setting now which can be overwritten
+
+    * Tree hidden by default for new installations
+
+    * Vi changes (thanks to Ross):
+        * Fixes for wxPython version >= 2.9
+        * Make caret colours definable in WikidPad.virc, options are
+            - "caret_colour_normal"
+            - "caret_colour_visual"
+            - "caret_colour_insert"
+            - "caret_colour_replace"
+            - "caret_colour_command"
+        * add option ('strip_headings') to strip _ and * from headings
+
+    * Bug fix: Closing tab from context menu in editor led to error
+      or crash (thanks to Ross)
+
+
+
+Oct. 31, 2012 (2.3beta06)
+
+    Thanks to Ross for all of the enhancements
+
+    * Vi improvements
+        * Initial support for loading settings from rc file
+        * Add :[range]sort command
+        * Add ':gvim' command to open wikipage in gvim (only for
+          when using original_sqlite database)
+        * Add 'viewsource' command
+        * Disable caret scrolling by default as it causes a large
+          performance hit
+        * Reset cmd selection after typing
+
+        * Fix bug when deleting in line visual mode
+        * Fix :command selection
+        * Fix line visual selection mode when moving caret down
+        * Fix shift in ViInputDialog, add option to refresh page
+          (F5) in preview
+        * Fix a number of other small bugs
+
+    * Add support for folding addition 'blocks' in the editor
+
+    * Bug fixes: Better source compatibility with wxPython 2.9 (Windows binary not affected)
+
+
+
+Jul. 02, 2012 (2.3beta05)
+
+    * Function to convert editor selection to wiki word now suggests
+      name of wiki word to move text to, based on beginning of text.
+      (Thanks to Bjorn F. Johansson)
+    * Moved function to convert editor selection to link from
+      "KeyBindings.py" to "PWikiNonCore.py" and into wiki
+      language helper
+    * Vi improvements
+
+    * Bug fixed: "page" insertion processed value as wiki words,
+      not wiki links (different with subpages)
+    * Bug fixed: export from command line failed (using a saved
+      export wasn't affected)
+
+
+
+May  19, 2012 (2.3beta04)
+
+    * Option to make timestamp stored in file signature block more
+      coarse to prevent false dirty recognition of wiki files moved
+      between different file systems (with different
+      time granularity). See [OptionsDialog#*Time coarsening*]
+
+    * Made maintenance function "recover wiki" more convenient, now
+      with file dialogs instead of simple text fields
+    * In dialog "Show job count" added info "done jobs" (since
+      opening of dialog) to reduce irritation due to not decreasing
+      job count
+
+    * Printing functionality transferred to plugin "PrintDefault.py"
+
+    * For error logging during initialization different log file name
+      "WikidPad_Init_Error.log" is used (allows to distinguish files
+      in portable installation)
+
+    * Vi improvements (thanks to Ross)
+        * Small fix for searching in editor.
+        * Make repeat (".") more vim-like
+
+        * Add basic support for mouse in ":" commands.
+        * Fix bug when using o or t whilst in visual mode.
+
+        * Add initial support for Vi Plugins.
+        * Fix some small bugs.
+        * Add option to skip to next/previous heading in preview mode
+          using { or }
+
+        * Fix text selection with g0 / g$
+        * Rewrite <sup> / <sub> tags when creating a link using
+          <<ys*r>> (or equivalent)
+        * Copy << >> blocks as lines if the span multiple lines and
+          fully form the lines
+        * Begin rewriting undo / redo function (may still be
+          a bit buggy)
+        * Fix word movements at end of file
+        * Fix line trucation when line is empty
+
+    * Bug fixed: Multipage text import of version 0 failed
+    * Bug fixed: Option "Strip spaces in search" had default "True",
+      should be "False"
+
+
+
+Feb. 25, 2012 (2.3beta03)
+
+    * New (but yet uncomfortable) maintenance function to recover a 
+      "Compact Sqlite" DB by creating an MPT export of the readable
+      parts. See [WikiMaintenance#++ Recover DB]
+
+    * Vi improvements (thanks to Ross)
+        * Correct named registers so that A-Z now append to their lowecase
+          equivalents
+        * Introduce numbered registers support
+            * Yanked text is placed into the "0 register
+            * Deleted (or changed) text is placed into the "1 register (and
+              the rest, "2, "3 ... are shifted along by one)
+            * Small text changes (< 1 line) are places into the "- register
+
+        * Add option to search google/wikipedia from cmdline (default arg is
+          current page name)
+        * Allow stripping of numbers with J cmd
+
+        * Add ":tab" (alias ":buffer) cmd to allow switching tabs.
+        * Fix ":quit" so it is possible to close other tabs (not just the
+          selected one)
+        * Fix ":tabonly" so it can take other open tabs as its argument
+
+        * Add ":s", "&" and "&&" cmds (repeat last ":s" cmd)
+        * Note: flags are currently used regardless if "&" or "&&" is used.
+
+    * Bug fixed: Multipage HTML export/print didn't work
+    * Bug fixed: "ContinueSearch" (default key: F3) didn't work in text editor
+    * Bug fixed: Indented table end not recognized
+    * More graceful handling of UTF-8 decoding from sqlite databases
+
+
+
+Jan. 29, 2012 (2.3beta02)
+
+    * Table cell appendices. See [TableFormatting#+++ Cell appendix]
+    * Support for spanning over multiple rows/columns in table using
+      continuation cells. See [TableFormatting#+++ Continuation cells]
+    * Restrict wiki word links in HTML export to words which are really
+      exported
+
+    * Configuration option to show all tabs initially in preview or
+      editor mode. See [OptionsDialog#*Tab Mode*]
+    * Configuration option to rebuild or update externally modified files
+      when opening wiki. See [OptionsDialog#*Rebuild*]
+    * Command line option to update externally modified files when
+      opening wiki. See [CommandLineSupport#*--update-ext*]
+
+    * Vi improvements (thanks to Ross)
+      * Add support for repeating visual mode commands in editor
+      * Add option to load keybindings from rc file (~/.Wikidpad.virc)
+      * Initial support for ':' commands.
+      * Rewrite vi search in editor
+      * Rewrite webkit preview to use new search dialog in vi mode
+      * Add support for '<,'> in range cmds
+      * Add :write option
+
+    * Shows a message in statusbar while background tasks are performed
+    * Go to end of paragraph(s) after rewrapping text
+
+    * Bug fixed: Unwanted space in first line of indented paragraph after
+      word wrapping
+    * Bug fixed: Adding spaces to heading of newly created wiki pages only
+      supported small subset of uppercase letters
+
+
+
+Jan. 01, 2012 (2.3beta01)
+
+    * Vi-mode improvements (thanks to Ross)
+        * Add link autocomplete support to vi insert mode
+        * Separate VI keybindings to allows for easier remapping of keys
+
+    * Internal: Basic support for plugins in context menus (read
+      "extensions/charcountContext.pyf" and
+      "docs/MenuHandling_contextInfo.txt")
+
+    * Bug fixed: Encode external webkit urls so they all work as
+      expected (thanks to Ross)
+    * Bug fixed: Layout problem in page search and replace dialog
+
+
+[ChangeLog2011]
+
+[ChangeLog2010]
+
+[ChangeLog2009]
+
+[ChangeLog2008]
+
+[ChangeLog2007]
+
+[ChangeLog2006]
+
+[ChangeLog2005]
+
+[ChangeLog2004]
+
+[ChangeLog2003]
+
+
+[bookmarked: true]
+[tree_position: 0]

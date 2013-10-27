@@ -1,0 +1,50 @@
+﻿++ Word Linking
+
+As you type wiki words into the editor they become underlined.  Words
+that already have content, like AutoCompletion turn blue, words that
+do not, like JavaTemplates, stay black but are underlined.
+
+To activate or follow a wiki word link, *double click on it*, or
+type CTRL-L when the cursor is in the word.
+
+
++++ What are wiki words?
+
+Wiki words are (at least by default) all words which start with an
+uppercase letter and where at least one uppercase letter follows a
+lowercase letter in the word (this is called "camelcase", like e.g.
+WikiWord) or where a lowercase letter follows after multiple uppercase
+letters (ABCd).
+
+Additionally text in brackets [] not containing some special
+characters (backslash \, #, !, ], [) can be a wiki word (in short
+called "bracketed wiki word"). If you bracket a camelcase wiki word
+it's the same as the non-bracketed word.
+
+Bracketed wiki words can also contain titles after a vertical bar '|'
+(if present) up to the closing bracket. The title is shown in HTML
+preview/export, example:
+
+[WordLinking|text you see instead in preview]
+
+See LinkTitle for more details about titles.
+
+
+anchor: exclude_from_linking
++++ Exclude wiki words from linking
+
+To exclude a wiki word from being interpreted as link, you can precede
+it with a backslash \ (e.g. \WikiWord) or enter it in one of the
+blacklists (open the "Views" node in the tree on the left, open therein
+the "Func. pages" node to see all of them).
+
+WikidPad recognizes CamelCase words as links (without brackets). To
+ignore one of these words enter it in a cc. (=camelcase) blacklist,
+each on a line of its own.
+
+Words in [brackets] can also be wiki links. To ignore one of these
+enter it in a ncc. (non-camelcase) blacklist *without the brackets*.
+
+The "Global" variant of each blacklist is stored as user setting and
+affects all wikis opened by the user while the "Wiki" variant is
+stored for the wiki.
