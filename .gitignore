@@ -1,4 +1,16 @@
+*~
 user_extensions
 WikidPadGlobals
 WikidPadHelp
 WikidPadHelp/*
+
+WikidPad_Init_Error.log
+
+iconv.dll
+intl.dll
+lib/enchant/
+libenchant.dll
+libglib-2.0-0.dll
+libgmodule-2.0-0.dll
+share/
+sqlite3.dll
