@@ -903,6 +903,7 @@ def actionExtractableWikiWord(s, l, st, t):
 
 
 def actionUrlLink(s, l, st, t):
+    print "XXXX", t
     if t.name == "urlLinkBare":
         t.bracketed = False
     else:
@@ -995,9 +996,18 @@ urlTitled = bracketStart + urlWithAppendInBrackets + whitespace + \
 urlTitled = urlTitled.setResultsNameNoCopy("urlLinkBracketed").setParseAction(actionUrlLink)
 
 
+Bracket2StartPAT = ur"\["
+Bracket2MidPAT = ur"\]\("
+Bracket2EndPAT = ur"\)"
 
-urlRef = urlTitled | urlBare
+bracket2Start = buildRegex(Bracket2StartPAT)
+bracket2Mid   = buildRegex(Bracket2MidPAT)
+bracket2End   = buildRegex(Bracket2EndPAT)
 
+urlTitledPrefix = bracket2Start + titleContent + bracket2Mid + urlWithAppend +  bracket2End
+urlTitledPrefix = urlTitledPrefix.setResultsNameNoCopy("urlLinkBracketed").setParseAction(actionUrlLink)
+
+urlRef = urlTitled | urlTitledPrefix | urlBare
 
 # TODO anchor/fragment
 wikiWordCc = buildRegex(ur"\b(?<!~)" + WikiWordCcPAT + ur"\b", "word") + \
