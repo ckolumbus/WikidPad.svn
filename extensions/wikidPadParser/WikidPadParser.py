@@ -901,9 +901,7 @@ def actionExtractableWikiWord(s, l, st, t):
         t.wikiWord = t.wikiWord.getString()
 
 
-
 def actionUrlLink(s, l, st, t):
-    print "XXXX", t
     if t.name == "urlLinkBare":
         t.bracketed = False
     else:
