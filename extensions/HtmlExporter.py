@@ -25,6 +25,8 @@ from pwiki import StringOps, Serialization
 from pwiki.WikiPyparsing import StackedCopyDict, SyntaxNode, buildSyntaxNode
 from pwiki.TempFileSet import TempFileSet
 
+from pwiki import HtmlEntityStrings
+
 from pwiki.SearchAndReplace import SearchReplaceOperation, ListWikiPagesOperation, \
         ListItemWithSubtreeWikiPagesNode
 
@@ -2545,6 +2547,12 @@ class HtmlExporter(AbstractExporter):
 
         elif tname == "htmlTag" or tname == "htmlEntity":
             self.outAppend(node.getString())
+        elif tname == "htmlEntityStr":
+            try:
+                out = HtmlEntityStrings.htmlEntityStrings[node.getString()]
+            except:
+                out = node.getString()
+            self.outAppend(out)
         elif tname == "htmlEquivalent":
             htmlContent = node.htmlContent
             if isinstance(htmlContent, HtmlStartTag):

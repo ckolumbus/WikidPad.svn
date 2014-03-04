@@ -19,6 +19,8 @@ from pwiki.StringOps import UPPERCASE, LOWERCASE, revStr
 from pwiki.WikiDocument import WikiDocument
 from pwiki.OptionsDialog import PluginOptionsPanel
 
+from pwiki.HtmlEntityStrings import *
+
 sys.stderr = sys.stdout
 
 locale.setlocale(locale.LC_ALL, '')
@@ -225,7 +227,10 @@ horizontalLine = buildRegex(ur"----+[ \t]*$", "horizontalLine")\
 
 htmlTag = buildRegex(ur"</?[A-Za-z][A-Za-z0-9:]*(?:/| [^\n>]*)?>", "htmlTag")
 
-htmlEntity = buildRegex(
+htmlEntityStrings = buildRegex(regHtmlEntityStrings, "htmlEntityStr") # + buildRegex(ur"(?:\s)")
+#htmlEntityStrings = htmlEntityStrings.setResultsNameNoCopy("htmlEntityStr").setParseAction(actionHtmlEntityStr)
+
+htmlEntity = htmlEntityStrings | buildRegex( 
         ur"&(?:[A-Za-z0-9]{2,10}|#[0-9]{1,10}|#x[0-9a-fA-F]{1,8});",
         "htmlEntity")
 
