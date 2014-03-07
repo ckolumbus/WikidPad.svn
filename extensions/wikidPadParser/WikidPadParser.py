@@ -264,7 +264,7 @@ def actionTodoEntry(s, l, st, t):
 
 
 todoKey = buildRegex(ur"\b(?:todo|done|wait|action|track|issue|"
-        ur"question|project)(?:\.[^:\s]+)?", "key")
+        ur"question|project|decision)(?:\.[^:\s]+)?", "key")
 # todoKey = todoKey.setParseStartAction(preActCheckNothingLeft)
 
 todoEnd = buildRegex(ur"\n|\||(?!.)")
