@@ -3969,7 +3969,7 @@ camelCaseWordsEnabled: false;a=[camelCaseWordsEnabled: false]\\n
             traceback.print_exc()
 
 
-    def makeRelUrlAbsolute(self, relurl, addSafe=''):
+    def makeRelUrlAbsolute(self, relurl, addSafe='', wikiWord=''):
         """
         Return the absolute file: URL for a rel: URL
         TODO: Remove
@@ -3979,7 +3979,9 @@ camelCaseWordsEnabled: false;a=[camelCaseWordsEnabled: false]\\n
                 "WikiDocument.makeRelUrlAbsolute()", DeprecationWarning,
                 stacklevel=2)
 
-        return self.getWikiDocument().makeRelUrlAbsolute(relurl, addSafe=addSafe)
+        return self.getWikiDocument().makeRelUrlAbsolute(relurl,
+                                                         addSafe=addSafe,
+                                                         wikiWord=wikiWord)
 
 
     def makeAbsPathRelUrl(self, absPath, addSafe=''):

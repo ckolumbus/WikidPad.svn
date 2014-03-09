@@ -13,8 +13,9 @@ Used terms:
 
 
 
-from os.path import exists, join, basename
+from os.path import exists, join, basename, dirname
 import os, os.path
+from shutil import rmtree
 
 from time import time, localtime
 import datetime
@@ -53,7 +54,11 @@ class WikiData:
         self.wikiDocument = wikiDocument
         self.dataDir = dataDir
         self.cachedWikiPageLinkTermDict = None
-        
+      
+        self.localDirPrefix = "local"
+        self.localDir = \
+                os.path.join(dirname(self.wikiDocument.getWikiConfigPath()), self.localDirPrefix) 
+
         dbPath = self.wikiDocument.getWikiConfig().get("wiki_db", "db_filename",
                 u"").strip()
                 
@@ -229,6 +234,22 @@ class WikiData:
 
     # ---------- Direct handling of page data ----------
     
+    def getFilepath(self, word):
+        """
+        Function must work for read-only wiki.
+        """
+        try:
+            try:
+                filePath = self.getWikiWordFileNameRaw(word)
+            except WikiFileNotFoundException:
+                raise
+
+            return filePath
+
+        except (IOError, OSError, sqlite.Error), e:
+            traceback.print_exc()
+            raise DbReadAccessError(e)
+
     def getContent(self, word):
         """
         Function must work for read-only wiki.
@@ -269,6 +290,7 @@ class WikiData:
             raise DbReadAccessError(e)
 
         try:
+            fileName = None
             if len(data) < 1:
                 if creadate is None:
                     creadate = ti
@@ -293,7 +315,12 @@ class WikiData:
                         self.connWrap.execSql("update wikiwords set filepath = ?, "
                                 "filenamelowercase = ? where word = ?",
                                 (fileName, fileName.lower(), word))
-
+            if fileName is not None:
+                print "MAKE DIR : " , fileName
+                try:
+                    os.makedirs(join(self.localDir, os.path.splitext(fileName)[0]))
+                except:
+                    pass
             self.cachedWikiPageLinkTermDict = None
         except (IOError, OSError, sqlite.Error), e:
             traceback.print_exc()
@@ -343,6 +370,15 @@ class WikiData:
             os.rename(longPathEnc(os.path.join(self.dataDir, oldFilePath)),
                     longPathEnc(os.path.join(self.dataDir, newFilePath)))
 
+            try:
+                print "MOVE DIR : " , oldFilePath , " - ", newFilePath
+                os.rename(longPathEnc(os.path.join(self.localDir, 
+                                                   os.path.splitext(oldFilePath)[0])),
+                        longPathEnc(os.path.join(self.localDir , 
+                                                 os.path.splitext(newFilePath)[0]))
+                         )
+            except:
+                pass
             self.cachedWikiPageLinkTermDict = None
 
             self.connWrap.execSql("update wikiwords set word = ?, filepath = ?, "
@@ -357,6 +393,7 @@ class WikiData:
     def _deleteContent(self, word):
         try:
             try:
+                filePath = self.getWikiWordFileNameRaw(word)
                 fileName = self.getWikiWordFileName(word)
             except WikiFileNotFoundException:
                 if self.wikiDocument.getWikiConfig().getboolean("main",
@@ -370,6 +407,11 @@ class WikiData:
             self.cachedWikiPageLinkTermDict = None
             if fileName is not None and os.path.exists(fileName):
                 os.unlink(fileName)
+                filePathFull = join(self.localDir,
+                                    os.path.splitext(filePath)[0])
+                #rmtree(filePathFull, ignore_errors=True)
+                print "RMTREE : ", filePathFull
+
         except (IOError, OSError, sqlite.Error), e:
             traceback.print_exc()
             raise DbWriteAccessError(e)

@@ -473,6 +473,9 @@ class WikiDataManager(MiscEventSourceMixin):
         # Set file storage according to configuration
         fs = self.fileStorage
 
+        self.localStorDir = os.path.join(os.path.dirname(self.getWikiConfigPath()),
+                "local")
+
         fs.setModDateMustMatch(self.getWikiConfig().getboolean("main",
                 "fileStorage_identity_modDateMustMatch", False))
         fs.setFilenameMustMatch(self.getWikiConfig().getboolean("main",
@@ -830,13 +833,30 @@ class WikiDataManager(MiscEventSourceMixin):
             return None
 
 
-    def makeRelUrlAbsolute(self, relurl, addSafe=''):
+    def makeRelUrlAbsolute(self, relurl, addSafe='', wikiWord=''):
         """
         Return the absolute file: URL for a rel: URL
         """
         relurl, add = StringOps.decomposeUrlQsFrag(relurl)
         
-        if relurl.startswith(u"rel://"):
+        if relurl.startswith(u"rel://~/"):
+            relpath = pathnameFromUrl(relurl[8:], False)
+
+            url = u"file:" + urlFromPathname(
+                    os.path.abspath(
+                        os.path.join(
+                            os.path.dirname(self.getWikiConfigPath()), 
+                            self.localStorDir,
+                            os.path.splitext(self.wikiData.getFilepath(wikiWord))[0],
+                            relpath)
+                    ), 
+                    addSafe=addSafe
+            )
+            print "URL : " , url
+
+#             return url
+            return StringOps.composeUrlQsFrag(url, add)
+        elif relurl.startswith(u"rel://"):
             relpath = pathnameFromUrl(relurl[6:], False)
 
             url = u"file:" + urlFromPathname(
