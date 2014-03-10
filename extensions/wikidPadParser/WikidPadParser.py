@@ -230,7 +230,7 @@ htmlTag = buildRegex(ur"</?[A-Za-z][A-Za-z0-9:]*(?:/| [^\n>]*)?>", "htmlTag")
 htmlEntityStrings = buildRegex(regHtmlEntityStrings, "htmlEntityStr") # + buildRegex(ur"(?:\s)")
 #htmlEntityStrings = htmlEntityStrings.setResultsNameNoCopy("htmlEntityStr").setParseAction(actionHtmlEntityStr)
 
-htmlEntity = htmlEntityStrings | buildRegex( 
+htmlEntity = htmlEntityStrings | buildRegex(
         ur"&(?:[A-Za-z0-9]{2,10}|#[0-9]{1,10}|#x[0-9a-fA-F]{1,8});",
         "htmlEntity")
 

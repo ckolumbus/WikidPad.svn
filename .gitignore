@@ -1,4 +1,8 @@
 *~
+*.pyc
+*.bak
+*.swp
+
 user_extensions
 WikidPadGlobals
 WikidPadHelp
