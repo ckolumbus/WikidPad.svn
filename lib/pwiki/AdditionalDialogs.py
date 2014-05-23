@@ -1955,7 +1955,8 @@ What makes wikidPad different from other notepad applications is the ease with w
     
     <p>Your configuration directory is: <b>%s</b><br />
     Sqlite version: <b>%s</b><br />
-    wxPython version: <b>%s</b>
+    wxPython version: <b>%s</b><br />
+    Whoosh version: <b>%s</b>
     </p>
     
 </body>
@@ -1966,6 +1967,9 @@ What makes wikidPad different from other notepad applications is the ease with w
 #         wx.Dialog.__init__(self, pWiki, -1, _(u'About WikidPad'),
 #                           size=(470, 330) )
         
+        from whoosh import __version__ as whoosh_version_tuple
+        whoosh_version = ".".join([str(x) for x in whoosh_version_tuple])
+
         if sqlite is None:
             sqliteVer = _(u"N/A")
         else:
@@ -1973,7 +1977,7 @@ What makes wikidPad different from other notepad applications is the ease with w
 
         content = _(self.TEXT_TEMPLATE) % (VERSION_STRING,
                 escapeHtml(pWiki.globalConfigDir), escapeHtml(sqliteVer),
-                escapeHtml(wx.__version__))
+                escapeHtml(wx.__version__), escapeHtml(whoosh_version))
 
         ShowStaticHtmlTextDialog.__init__(self, pWiki, _(u'About WikidPad'),
                 htmlContent=content, size=(470, 330))

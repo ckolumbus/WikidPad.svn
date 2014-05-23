@@ -14,6 +14,21 @@ import SearchAndReplaceBoolLang
 
 Unknown = object()  # Abstract third truth value constant
 
+from whoosh.highlight import HtmlFormatter
+class MySimpleHtmlFormatter(HtmlFormatter):
+
+    def __init__(self, tagname="strong", between="...",
+                 classname="match", termclass="term", maxclasses=5,
+                 attrquote='"'):
+        HtmlFormatter.__init__(self,tagname,between,classname, termclass, maxclasses,attrquote)
+
+    def format(self, fragments, replace=False):
+        first_pos = fragments[0].matches[0].startchar
+
+        formatted = [self.format_fragment(f, replace=replace)
+                     for f in fragments]
+        return (self.between.join(formatted), first_pos)
+
 
 class AbstractSearchNode:
     """
@@ -1777,11 +1792,12 @@ class SearchReplaceOperation:
         analyzer = docPage.getWikiDocument().getWhooshIndexContentAnalyzer()
         
         # TODO: Length of before and after from config
-        fragmenter = highlight.ContextFragmenter(terms, (before + after) * 2,
-                before, after)
+        # CKol: Whoosh 2.x does not have a "before" and "after", only a 
+        #       "surrounding" 
+        fragmenter = highlight.ContextFragmenter((before+after)*3, (before+after)/2)
 
         if formatter is None:
-            formatter = highlight.SimpleHtmlFormatter()
+            formatter = MySimpleHtmlFormatter()
         
         return highlight.highlight(content, terms, analyzer,
                      fragmenter, formatter, top=1)
